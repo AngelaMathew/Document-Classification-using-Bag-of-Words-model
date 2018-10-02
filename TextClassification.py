@@ -35,7 +35,7 @@ def tokenize(text):
 categories = ['soc.religion.christian',
                'comp.graphics']
 twenty_train = fetch_20newsgroups(subset='train',categories=categories, remove=('headers', 'footers', 'quotes'), shuffle=True)
-vectorizer_s = CountVectorizer( max_features=10, min_df=3, analyzer='word',ngram_range=(1,1), stop_words="english", tokenizer=tokenize )
+vectorizer_s = CountVectorizer(min_df=3, analyzer='word',ngram_range=(1,1), stop_words="english", tokenizer=tokenize )
 twenty_train_stemmed=vectorizer_s.fit_transform(twenty_train.data)
 print("\n\ntfidf vectorisation docXterm matrix")
 tfidf_transformer = TfidfTransformer()
@@ -44,10 +44,14 @@ print(twenty_train_stemmed_tfidf.shape)
 features=vectorizer_s.get_feature_names()
 for t in features[:10]:
      print(t)
-new_text = ['God loves all people.Divine jesus pray for us.','god is love','graphics and technology']
+
+        
+new_text = ['Divine jesus pray for us.','God is love','graphics and technology']
+vectors_test = vectorizer_s.transform(new_text)
+
 clf = MultinomialNB(alpha=.01)
 clf.fit(twenty_train_stemmed_tfidf, twenty_train.target)
-vectors_test = vectorizer_s.transform(new_text)
 print(vectors_test.shape)
+
 pred = clf.predict(vectors_test)
 print(pred)
