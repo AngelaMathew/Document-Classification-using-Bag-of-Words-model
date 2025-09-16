@@ -1,6 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import numpy as np
+arr=[12,22,22,11]
+print(arr)
+print(np.array(arr))
 
+'''
 from sklearn.datasets import fetch_20newsgroups
 import collections, re
 from sklearn.feature_extraction.text import CountVectorizer
@@ -55,3 +60,4 @@ print(vectors_test.shape)
 
 pred = clf.predict(vectors_test)
 print(pred)
+'''
